@@ -24,6 +24,11 @@ export type Touchpoint = {
   clue: string;
   why: string;
   rejected: Partial<Record<NeedId, string>>;
+  /**
+   * The exact phrase inside `text` that the test turns on. Shown, for every touchpoint at once, only on "Highlight the key
+   * words" — it points at where to look, never at which need it is (CLAUDE.md #4).
+   */
+  key: string;
 };
 
 export const OUTCOME_LABEL = bi({
@@ -54,6 +59,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Der Inhalt des Angebots ist nicht die Beschwerde. Der Interessent will jemanden, der für CloudTech bürgt.",
       ),
     },
+    key: t("the answer took nine days", "die Antwort dauerte neun Tage"),
   },
   {
     id: "p02" as TouchId,
@@ -77,6 +83,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Das Go-live kam spät, aber die Beschwerde gilt dem gebrochenen Versprechen und dem Schweigen, nicht einer Nachricht, die im falschen Moment kam.",
       ),
     },
+    key: t("and nobody rang in between", "und zwischendurch rief niemand an"),
   },
   {
     id: "p03" as TouchId,
@@ -100,6 +107,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Das Review kam spät, aber der Kunde stellt das Wort von CloudTech infrage, nicht den Moment einer Nachricht.",
       ),
     },
+    key: t("If you cannot keep your own plan", "Wenn Sie Ihren eigenen Plan nicht einhalten können"),
   },
   {
     id: "p04" as TouchId,
@@ -123,6 +131,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Vertrauen ist betroffen, aber die entscheidenden Worte handeln davon, während des Problems schutzlos gelassen worden zu sein, nicht von einem gebrochenen Versprechen.",
       ),
     },
+    key: t("no idea whether our data was affected", "keine Ahnung, ob unsere Daten betroffen waren"),
   },
   {
     id: "p05" as TouchId,
@@ -146,6 +155,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Der Kunde zweifelt nicht an der Ehrlichkeit von CloudTech. Ihm fehlt die Zusicherung, die er braucht, um sich selbst zu schützen.",
       ),
     },
+    key: t("If you cannot tell me where my data is, I cannot tell my board", "Wenn Sie mir nicht sagen können, wo meine Daten liegen, kann ich es meinem Vorstand nicht sagen"),
   },
   {
     id: "p06" as TouchId,
@@ -166,6 +176,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
     rejected: {
       timing: t("The content, not the moment, is wrong. It would not fit at any time.", "Falsch ist der Inhalt, nicht der Moment. Er würde zu keiner Zeit passen."),
     },
+    key: t("with no mention of either customer's own setup", "ohne Bezug auf das eigene Setup eines der beiden Kunden"),
   },
   {
     id: "p07" as TouchId,
@@ -189,6 +200,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Die Mail geht nachlässig mit dem um, was CloudTech weiß. Die Beschwerde ist, dass sie nicht passt, nicht dass CloudTech Versprechen bricht.",
       ),
     },
+    key: t("including the 340 customers who already have it", "auch die 340 Kunden, die es schon haben"),
   },
   {
     id: "p08" as TouchId,
@@ -209,6 +221,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
     rejected: {
       status: t("The customer does not ask to be recognised. They ask to meet peers.", "Der Kunde bittet nicht darum, anerkannt zu werden. Er bittet darum, Gleichgestellte zu treffen."),
     },
+    key: t("I would like to meet the others", "Ich würde gern die anderen kennenlernen"),
   },
   {
     id: "p09" as TouchId,
@@ -232,6 +245,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Der Kunde fragt nicht, ob CloudTech sein Wort hält. Er bittet um Kontakt zu Gleichgestellten.",
       ),
     },
+    key: t("I would stay just to be in that circle", "Ich würde allein deshalb bleiben, um in diesem Kreis zu sein"),
   },
   {
     id: "p10" as TouchId,
@@ -255,6 +269,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Der Brief ist allgemein, aber die entscheidenden Worte betreffen die Anerkennung der Beziehung, nicht die Passung.",
       ),
     },
+    key: t("nobody here has ever said thank you or treated us differently", "niemand hier hat je Danke gesagt oder uns anders behandelt"),
   },
   {
     id: "p11" as TouchId,
@@ -275,6 +290,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
     rejected: {
       security: t("The outage matters, but the decisive words are about the moment the offer arrived.", "Der Ausfall zählt, aber die entscheidenden Worte betreffen den Moment, in dem das Angebot kam."),
     },
+    key: t("eleven days after a serious outage", "elf Tage nach einem schweren Ausfall"),
   },
   {
     id: "p12" as TouchId,
@@ -298,6 +314,7 @@ export const TOUCHPOINTS: Touchpoint[] = bi([
         "Der Kunde bittet nicht um Anerkennung seiner Kundendauer. Er weist darauf hin, dass das Angebot nicht zu seiner Nutzung passt.",
       ),
     },
+    key: t("This letter could have gone to anybody", "Dieser Brief hätte an jeden gehen können"),
   },
 ]);
 

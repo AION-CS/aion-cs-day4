@@ -6,6 +6,7 @@ import { AnswerKey } from "@/components/ui/AnswerKey";
 import { CalcDiagnosis } from "@/components/ui/CalcDiagnosis";
 import { Field } from "@/components/ui/Field";
 import { FormulaBuilder } from "@/components/ui/FormulaBuilder";
+import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { CheckBar, OptionList, Reading, TextBox } from "@/components/ui/Inputs";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
@@ -71,6 +72,7 @@ export function Block11() {
         domId={IDS.feeling}
         clues={Object.fromEntries(FEELINGS.map((f) => [f.id, f.clue]))}
         reasons={Object.fromEntries(FEELINGS.map((f) => [f.id, f.why]))}
+        keyPhrases={Object.fromEntries(FEELINGS.map((f) => [f.id, f.key]))}
         result={l1.sortResult}
         checks={l1.sortChecks}
         onCheck={() => patch((s) => ({ checks: s.checks + 1, sortChecks: s.sortChecks + 1, sortResult: sortHolds(s.sort) }))}
@@ -82,7 +84,7 @@ export function Block11() {
         binCols={2}
         intro={tt("Drag a statement into a bin, or select it and then select a bin. Select a placed one to move it again.", "Ziehen Sie eine Aussage in ein Fach, oder wählen Sie sie und dann ein Fach. Wählen Sie eine bereits platzierte, um sie erneut zu verschieben.")}
         tests={
-          <RevealHint id="sort-tests" label={tt("Show the test questions", "Testfragen anzeigen")} title={tt("Test questions · taught in Materi A2", "Testfragen · vermittelt in Materi A2")}>
+          <RevealHint id="sort-tests" label={tt("Show the test questions", "Testfragen anzeigen")} title={tt("Test questions · taught in Materi A2", "Testfragen · vermittelt in Materi A2")} forceOpen={true}>
             <div className="space-y-2 text-caption text-ink">
               <p>{tt("Ask these of every statement. They repeat the tests from Materi A2; they never say which statement goes where.", "Stellen Sie diese Fragen zu jeder Aussage. Sie wiederholen die Tests aus Materi A2; sie sagen nie, welche Aussage wohin gehört.")}</p>
               <ul className="space-y-1.5">
@@ -116,6 +118,7 @@ export function Block11() {
         min={MIN_LINE}
         rows={2}
       />
+      <ExampleAnswer id="extra-factor-example" guide={extraFactorGuide()} />
       {mentor && <MentorGuide guide={extraFactorGuide()} />}
       <p className="text-caption text-ash">
         {tt("Words in the statements, explained in plain language:", "Wörter in den Aussagen, in einfacher Sprache erklärt:")} <Gloss>{tt("data centre, restore time, liability, migration, forum, round table.", "Rechenzentrum, Wiederherstellungszeit, Haftung, Migration, Forum, Round Table.")}</Gloss>
@@ -155,6 +158,7 @@ export function Block12() {
         domId={IDS.line}
         clues={Object.fromEntries(LINES.map((l) => [l.id, l.clue]))}
         reasons={Object.fromEntries(LINES.map((l) => [l.id, l.why]))}
+        keyPhrases={Object.fromEntries(LINES.map((l) => [l.id, l.key]))}
         result={l1.trigResult}
         checks={l1.trigChecks}
         onCheck={() => patch((s) => ({ checks: s.checks + 1, trigChecks: s.trigChecks + 1, trigResult: trigHolds(s.trig) }))}
@@ -167,7 +171,7 @@ export function Block12() {
         checkLabel={tt("Check my triggers", "Meine Trigger prüfen")}
         intro={tt("Drag a line into a bin, or select it and then select a bin. Tag the trigger the line uses, whether or not it is honest. Select a placed one to move it again.", "Ziehen Sie eine Zeile in ein Fach, oder wählen Sie sie und dann ein Fach. Ordnen Sie den Trigger zu, den die Zeile nutzt, ob er ehrlich ist oder nicht. Wählen Sie eine platzierte, um sie erneut zu verschieben.")}
         tests={
-          <RevealHint id="trig-tests" label={tt("Show the test questions", "Testfragen anzeigen")} title={tt("Test questions · taught in Materi A3", "Testfragen · vermittelt in Materi A3")}>
+          <RevealHint id="trig-tests" label={tt("Show the test questions", "Testfragen anzeigen")} title={tt("Test questions · taught in Materi A3", "Testfragen · vermittelt in Materi A3")} forceOpen={true}>
             <div className="space-y-2 text-caption text-ink">
               <p>{tt("Ask the test of the trigger you suspect. They repeat the tests from Materi A3; they never say which line goes where.", "Stellen Sie die Testfrage des Triggers, den Sie vermuten. Sie wiederholen die Tests aus Materi A3; sie sagen nie, welche Zeile wohin gehört.")}</p>
               <ul className="space-y-1.5">
@@ -311,6 +315,7 @@ export function Block13() {
                   </div>
                 </div>
               </TextBox>
+              {i < APPROACH_COUNT && <ExampleAnswer id={`appr-${i}-example`} guide={approachGuide(i)} />}
               {mentor && i < APPROACH_COUNT && <MentorGuide guide={approachGuide(i)} />}
             </div>
           );
@@ -525,6 +530,7 @@ export function Block14() {
           ]}
         />
       </TextBox>
+      <ExampleAnswer id="sentence-example" guide={sentenceGuide()} />
       {mentor && <MentorGuide guide={sentenceGuide()} />}
 
       <CheckBar onCheck={check} checkLabel={tt("Check my figures, risks and sentence", "Meine Zahlen, Risiken und meinen Satz prüfen")} checks={l1.checks} />
@@ -568,6 +574,7 @@ export function Block15() {
       {fields.map((f) => (
         <div key={f.k} className="space-y-1.5">
           <TextBox id={IDS.reflect(f.k)} label={f.label} help={f.help} value={l1.reflect[f.k]} onChange={(v) => patch((s) => ({ reflect: { ...s.reflect, [f.k]: v } }))} min={MIN_LINE} rows={3} />
+          <ExampleAnswer id={`reflect-${f.k}-example`} guide={reflectGuide(f.k)} />
           {mentor && <MentorGuide guide={reflectGuide(f.k)} />}
         </div>
       ))}

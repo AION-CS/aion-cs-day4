@@ -5,6 +5,7 @@ import { Toggles } from "@/components/materi/kit";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
 import { BudgetBar } from "@/components/ui/BudgetBar";
+import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { CheckBar, OptionList, Reading, ScorePick, TextBox } from "@/components/ui/Inputs";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
@@ -104,6 +105,7 @@ export function Block31() {
         min={60}
         rows={3}
       />
+      <ExampleAnswer id="vision-text-example" guide={visionTextGuide()} />
       {mentor && <MentorGuide guide={visionTextGuide()} />}
       <CheckBar onCheck={check} checkLabel={tt("Check my vision", "Meine Vision prüfen")} checks={r2.checks} />
     </AnswerBlock>
@@ -163,6 +165,7 @@ export function Block32() {
               min={MIN_LINE}
               rows={2}
             />
+            <ExampleAnswer id={`lever-${l.id}-move-example`} guide={moveGuide(l.id)} />
             {mentor && <MentorGuide guide={moveGuide(l.id)} />}
           </div>
         );
@@ -336,6 +339,7 @@ export function Block33() {
           ]}
         />
       </TextBox>
+      <ExampleAnswer id="weigh-example" guide={weighGuide()} />
       {mentor && <MentorGuide guide={weighGuide()} />}
     </AnswerBlock>
   );
@@ -469,6 +473,7 @@ export function Block34() {
             min={40}
             rows={3}
           />
+          <ExampleAnswer id="main-why-example" guide={mainWhyGuide()} />
           {mentor && <MentorGuide guide={mainWhyGuide()} />}
         </div>
       )}
@@ -553,6 +558,7 @@ export function Block35() {
               clue={tt("Add the number that says when you act: how many customers, how many weeks, what percentage.", "Ergänzen Sie die Zahl, die sagt, wann Sie handeln: wie viele Kunden, wie viele Wochen, welcher Prozentsatz.")}
               clueShown
             />
+            <ExampleAnswer id={`risk-${id}-response-example`} guide={riskResponseGuide(id)} />
             {mentor && <MentorGuide guide={riskResponseGuide(id)} />}
           </div>
         );
@@ -739,6 +745,7 @@ export function Block36() {
                   min={20}
                   rows={2}
                 />
+                <ExampleAnswer id={`arch-${id}-trigger-example`} guide={triggerGuide(id)} />
                 {mentor && <MentorGuide guide={triggerGuide(id)} />}
               </>
             )}
@@ -781,6 +788,7 @@ export function Block36() {
             min={15}
             rows={2}
           />
+          <ExampleAnswer id="postponed-example" guide={postponedGuide()} />
           {mentor && <MentorGuide guide={postponedGuide()} />}
         </div>
       )}
@@ -840,6 +848,7 @@ export function Block37() {
               min={MIN_LINE}
               rows={2}
             />
+            <ExampleAnswer id={`assumption-${i}-example`} guide={assumptionGuide(i)} />
             {mentor && <MentorGuide guide={assumptionGuide(i)} />}
           </div>
         ))}
@@ -925,6 +934,7 @@ export function Block37() {
         >
           <WritingHelp id="challenge-help" steps={[tt("Go back to your tripwire and the objection figures before spending more.", "Gehen Sie zu Ihrem Tripwire und den Widerspruchszahlen zurück, bevor Sie mehr ausgeben."), tt("Say what the numbers still support, and keep it.", "Sagen Sie, was die Zahlen weiterhin stützen, und behalten Sie es."), tt("Change one lever, not the whole plan, and say how you will find out why the customers objected.", "Ändern Sie einen Hebel, nicht den ganzen Plan, und sagen Sie, wie Sie herausfinden, warum die Kunden widersprochen haben.")]} />
         </TextBox>
+        <ExampleAnswer id="challenge-example" guide={challengeGuide()} />
         {mentor && <MentorGuide guide={challengeGuide()} />}
       </div>
 

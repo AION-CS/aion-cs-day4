@@ -19,6 +19,11 @@ export type Feeling = {
   why: string;
   /** For the mentor answer key: why the most tempting other emotion is rejected. */
   rejected: Partial<Record<EmotionId, string>>;
+  /**
+   * The exact phrase inside `quote` that the test turns on. Shown, for every statement at once, only when the learner asks to
+   * "Highlight the key words" — it points at where to look, never at which bin it points to (CLAUDE.md #4).
+   */
+  key: string;
 };
 
 export const FEELINGS: Feeling[] = bi([
@@ -40,6 +45,7 @@ export const FEELINGS: Feeling[] = bi([
         "Es sagt nicht, dass die Menschen ihr Wort halten. Es sagt, dass der Verlust abgedeckt und der Datenstandort festgelegt ist.",
       ),
     },
+    key: t("cover data loss up to €500,000", "Datenverlust bis 500.000 € abdecken"),
   },
   {
     id: "f2" as FeelingId,
@@ -59,6 +65,7 @@ export const FEELINGS: Feeling[] = bi([
         "Der Kunde beurteilt nicht, ob die Menschen von Nordwolke ihr Wort halten. Die Vertragsklausel nimmt die Sorge weg.",
       ),
     },
+    key: t("put a four-hour restore time into the contract", "hat eine Wiederherstellungszeit von vier Stunden in den Vertrag geschrieben"),
   },
   {
     id: "f3" as FeelingId,
@@ -75,6 +82,7 @@ export const FEELINGS: Feeling[] = bi([
     rejected: {
       security: t("No protection is described. The customer compares kept and unkept promises.", "Es wird kein Schutz beschrieben. Der Kunde vergleicht gehaltene und nicht gehaltene Versprechen."),
     },
+    key: t("It was, to the hour.", "Sie war es, auf die Stunde genau."),
   },
   {
     id: "f4" as FeelingId,
@@ -91,6 +99,7 @@ export const FEELINGS: Feeling[] = bi([
     rejected: {
       security: t("Nothing in the sentence is about being protected. It is about being told the truth.", "Nichts im Satz handelt davon, geschützt zu sein. Es geht darum, die Wahrheit gesagt zu bekommen."),
     },
+    key: t("told me the feature we wanted was not ready yet", "sagte mir, die gewünschte Funktion sei noch nicht fertig"),
   },
   {
     id: "f5" as FeelingId,
@@ -110,6 +119,7 @@ export const FEELINGS: Feeling[] = bi([
         "Das Siegel ist kein Beleg dafür, dass Nordwolke sein Wort hält. Es wird dafür geschätzt, wie es auf die eigenen Kunden des Kunden wirkt.",
       ),
     },
+    key: t("Our own customers ask about it.", "Unsere eigenen Kunden fragen danach."),
   },
   {
     id: "f6" as FeelingId,
@@ -129,6 +139,7 @@ export const FEELINGS: Feeling[] = bi([
         "Genannt zu werden betrifft, wie andere den Kunden sehen. Es stellt den Kunden nicht in eine Gruppe von Gleichgestellten.",
       ),
     },
+    key: t("named our IT lead in their published customer story", "haben unseren IT-Leiter in ihrer veröffentlichten Kundengeschichte genannt"),
   },
   {
     id: "f7" as FeelingId,
@@ -148,6 +159,7 @@ export const FEELINGS: Feeling[] = bi([
         "Über Ansehen oder darüber, wie andere den Kunden sehen, wird nichts gesagt. Der Wert liegt darin, Menschen zu treffen, die das Problem teilen.",
       ),
     },
+    key: t("talk to people who have the same headaches as we do", "spreche ich mit Leuten, die dieselben Sorgen haben wie wir"),
   },
   {
     id: "f8" as FeelingId,
@@ -164,6 +176,7 @@ export const FEELINGS: Feeling[] = bi([
     rejected: {
       security: t("No protection is described. The relief is not being alone with the problem.", "Es wird kein Schutz beschrieben. Die Erleichterung ist, mit dem Problem nicht allein zu sein."),
     },
+    key: t("I stopped feeling like the only one", "Ich fühlte mich nicht mehr wie der Einzige"),
   },
 ]);
 

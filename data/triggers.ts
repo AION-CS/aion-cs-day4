@@ -36,6 +36,11 @@ export type SalesLine = {
   rejected: Partial<Record<TriggerId, string>>;
   /** Why the line would not be sent as it stands (only when holdsUp is false). */
   fails?: string;
+  /**
+   * The exact phrase inside `text` the test turns on. Shown, for every line at once, only on "Highlight the key words" — it
+   * points at where to look, never at the trigger it is (CLAUDE.md #4).
+   */
+  key: string;
 };
 
 export const LINES: SalesLine[] = bi([
@@ -59,6 +64,7 @@ export const LINES: SalesLine[] = bi([
         "Es ist keine schlichte Bedingung. Die Zahl der freien Plätze wird genutzt, damit Warten teuer wirkt.",
       ),
     },
+    key: t("Two slots are open for the third quarter.", "Für das dritte Quartal sind noch zwei Plätze frei."),
   },
   {
     id: "t2" as LineId,
@@ -81,6 +87,7 @@ export const LINES: SalesLine[] = bi([
       "Not true: the limit is not real. It also fails the respect test, and a false deadline is a misleading claim (§ 5 UWG).",
       "Nicht wahr: Die Grenze ist nicht echt. Sie fällt auch beim Respekt-Test durch, und eine falsche Frist ist eine irreführende Angabe (§ 5 UWG).",
     ),
+    key: t("The countdown restarts every time the page is loaded.", "Der Countdown startet bei jedem Laden der Seite neu."),
   },
   {
     id: "t3" as LineId,
@@ -99,6 +106,7 @@ export const LINES: SalesLine[] = bi([
     rejected: {
       authority: t("No expert or certificate is used. The weight is on what firms like the customer did.", "Es wird kein Experte und kein Zertifikat genutzt. Das Gewicht liegt darauf, was Firmen wie der Kunde getan haben."),
     },
+    key: t("their names and numbers are on page 4", "Namen und Nummern stehen auf Seite 4"),
   },
   {
     id: "t4" as LineId,
@@ -121,6 +129,7 @@ export const LINES: SalesLine[] = bi([
       "Not checkable: no survey, sample or date. A claim the customer cannot verify is a demand for faith.",
       "Nicht überprüfbar: keine Umfrage, keine Stichprobe, kein Datum. Eine Behauptung, die der Kunde nicht verifizieren kann, verlangt blindes Vertrauen.",
     ),
+    key: t("No survey, sample size or date is given.", "Weder Umfrage noch Stichprobengröße noch Datum werden genannt."),
   },
   {
     id: "t5" as LineId,
@@ -139,6 +148,7 @@ export const LINES: SalesLine[] = bi([
     rejected: {
       none: t("It is more than a plain term: the certificate is used to make the customer feel safe.", "Es ist mehr als eine schlichte Bedingung: Das Zertifikat soll dem Kunden ein sicheres Gefühl geben."),
     },
+    key: t("The certificate number and the auditor's name are printed on this page.", "Zertifikatsnummer und Name des Prüfers stehen auf dieser Seite."),
   },
   {
     id: "t6" as LineId,
@@ -161,6 +171,7 @@ export const LINES: SalesLine[] = bi([
       "Not checkable: no expert is named. A credential nobody can check is a claim, not an authority.",
       "Nicht überprüfbar: Es wird kein Experte genannt. Ein Nachweis, den niemand prüfen kann, ist eine Behauptung, keine Autorität.",
     ),
+    key: t("No expert is named.", "Es wird kein Experte genannt."),
   },
   {
     id: "t7" as LineId,
@@ -179,6 +190,7 @@ export const LINES: SalesLine[] = bi([
     rejected: {
       scarcity: t("The 36 months and the notice period are not a limit used to make the customer hurry.", "Die 36 Monate und die Kündigungsfrist sind keine Grenze, die den Kunden zur Eile bringen soll."),
     },
+    key: t("with a notice period of three months before the end of the term", "mit einer Kündigungsfrist von drei Monaten zum Ende der Laufzeit"),
   },
   {
     id: "t8" as LineId,
@@ -197,6 +209,7 @@ export const LINES: SalesLine[] = bi([
     rejected: {
       scarcity: t("The 14 days is a payment term, not a limit that makes waiting costly.", "Die 14 Tage sind eine Zahlungsfrist, keine Grenze, die Warten teuer macht."),
     },
+    key: t("payable within 14 days", "sind innerhalb von 14 Tagen zahlbar"),
   },
 ]);
 

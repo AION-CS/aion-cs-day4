@@ -6,6 +6,7 @@ import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
 import { BudgetBar } from "@/components/ui/BudgetBar";
 import { Field } from "@/components/ui/Field";
+import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { CheckBar, OptionList, Reading, ScorePick, TextBox } from "@/components/ui/Inputs";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
@@ -61,6 +62,7 @@ export function Block21() {
         domId={IDS.touch}
         clues={Object.fromEntries(TOUCHPOINTS.map((p) => [p.id, p.clue]))}
         reasons={Object.fromEntries(TOUCHPOINTS.map((p) => [p.id, p.why]))}
+        keyPhrases={Object.fromEntries(TOUCHPOINTS.map((p) => [p.id, p.key]))}
         result={l1.tagResult}
         checks={l1.tagChecks}
         onCheck={() => patch((s) => ({ checks: s.checks + 1, tagChecks: s.tagChecks + 1, tagResult: tagHolds(s.tags) }))}
@@ -72,7 +74,7 @@ export function Block21() {
         checkLabel={tt("Check my tags", "Meine Zuordnungen prüfen")}
         intro={tt("Drag a touchpoint into a need, or select it and then select a need. Select a placed one to move it again. Tag one need per touchpoint: the one that is left unmet.", "Ziehen Sie einen Touchpoint zu einem Bedürfnis, oder wählen Sie ihn und dann ein Bedürfnis. Wählen Sie einen platzierten, um ihn erneut zu verschieben. Ordnen Sie pro Touchpoint ein Bedürfnis zu: das, das unerfüllt bleibt.")}
         tests={
-          <RevealHint id="tag-tests" label={tt("Show the test questions", "Testfragen anzeigen")} title={tt("Test questions · taught in Materi A6", "Testfragen · vermittelt in Materi A6")}>
+          <RevealHint id="tag-tests" label={tt("Show the test questions", "Testfragen anzeigen")} title={tt("Test questions · taught in Materi A6", "Testfragen · vermittelt in Materi A6")} forceOpen={true}>
             <div className="space-y-2 text-caption text-ink">
               <p>{tt("Ask the test of the need you suspect. They repeat the tests from Materi A6; they never say which touchpoint goes where.", "Stellen Sie die Testfrage des Bedürfnisses, das Sie vermuten. Sie wiederholen die Tests aus Materi A6; sie sagen nie, welcher Touchpoint wohin gehört.")}</p>
               <ul className="space-y-1.5">
@@ -220,6 +222,7 @@ export function Block22() {
                 <Toggles<Strength> label={tt(`Strength of need ${i + 1}`, `Stärke von Bedürfnis ${i + 1}`)} value={r.strength} onChange={(v) => setRow(i, { strength: v })} options={strengthOpts()} />
               </div>
             </Field>
+            <ExampleAnswer id={`pattern-${i}-example`} guide={behaviourGuide(i)} />
             {mentor && <MentorGuide guide={behaviourGuide(i)} />}
           </div>
         ))}
@@ -268,6 +271,7 @@ export function Block22() {
           min={20}
           rows={2}
         />
+        <ExampleAnswer id="info-text-example" guide={infoTextGuide()} />
         {mentor && <MentorGuide guide={infoTextGuide()} />}
       </div>
     </AnswerBlock>
@@ -542,6 +546,7 @@ export function Block23() {
               ]}
             />
           </TextBox>
+          <ExampleAnswer id="why-example" guide={whyGuide()} />
           {mentor && <MentorGuide guide={whyGuide()} />}
         </div>
       )}
@@ -712,6 +717,7 @@ export function Block24() {
           refs={[{ label: tt("Members assumed", "Angenommene Mitglieder"), value: String(MEMBERS), target: IDS.planTotal }]}
         />
       </TextBox>
+      <ExampleAnswer id="loy-why-example" guide={loyWhyGuide()} />
       {mentor && <MentorGuide guide={loyWhyGuide()} />}
 
       <CheckBar onCheck={check} checkLabel={tt("Check my concept", "Mein Konzept prüfen")} checks={l1.checks} />
