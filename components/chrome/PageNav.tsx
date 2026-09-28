@@ -7,6 +7,7 @@ import type { NavItem } from "@/data/pageNav";
 import { scrollToAndFlash } from "@/lib/flash";
 import { taskBlocks } from "@/lib/progress";
 import type { RouteNo } from "@/lib/routes";
+import { openOptionalBlock } from "@/store/useOptionalOpen";
 import { useHydrated } from "@/store/useStore";
 import { usePersisted } from "@/store/usePersisted";
 import { tt } from "@/lib/lang";
@@ -70,6 +71,8 @@ export function PageNav({ route }: { route: RouteNo }) {
   const go = (id: string) => {
     setOpen(false);
     setActive(id);
+    // An Optional card or block is collapsed until asked for: open it first, then land on it.
+    openOptionalBlock(id);
     window.setTimeout(() => scrollToAndFlash(id, "ref", "start"), 60);
   };
   const activeItem = items.find((i) => i.id === active);
@@ -106,6 +109,12 @@ export function PageNav({ route }: { route: RouteNo }) {
                           <span aria-hidden className={clsx("absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-canvas", "bg-signal")} />
                         )}
                       </button>
+                      {/* Always visible, not only on hover/focus: a learner must never have to hover to know Core from Optional. */}
+                      {it.done && (
+                        <span aria-hidden className={clsx("mt-0.5 block w-full text-center text-[9px] font-semibold uppercase leading-none tracking-wide", it.optional ? "text-ash" : "text-signal")}>
+                          {it.optional ? tt("optional", "optional") : tt("core", "Kern")}
+                        </span>
+                      )}
                       <span
                         aria-hidden
                         className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-ink px-2 py-1 text-micro text-paper shadow-sm group-focus-within:block group-hover:block"

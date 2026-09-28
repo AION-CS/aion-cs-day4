@@ -23,7 +23,7 @@ import {
   responders,
 } from "@/data/route2";
 import type { ArchId, LeverKind, RiskId, SystemId } from "@/data/route2";
-import { euro } from "@/lib/lang";
+import { euro, tt } from "@/lib/lang";
 
 /**
  * Mentor-only worked answers for every task question the answer keys (lib/answerKey.ts) do not already cover: the numeric fields,
@@ -36,6 +36,13 @@ export type MentorGuide = {
   title: string;
   /** The model answer, as a learner would enter it. */
   answer: string;
+  /**
+   * A learner-facing worked example, shown by <ExampleAnswer> instead of `answer` when the field's own answer is the case's
+   * calculated result or one of a small fixed set of correct picks. Uses the same method as `answer`, but different, generic
+   * names and different numbers, so it teaches the method without handing over this case's result. Leave unset when `answer`
+   * is already safe to show as-is (an open reflection or hypothesis, where many answers defend).
+   */
+  example?: string;
   /** For a calculation: each step with its numbers, in order. */
   steps?: WorkedStep[];
   /** Why the answer is what it is, in one or two sentences a mentor can say out loud. */
@@ -120,6 +127,10 @@ export function sentenceGuide(): MentorGuide {
   return {
     title: "1.4 · Effect against feasibility",
     answer: KEY_L1.sentence,
+    example: tt(
+      "Say your own Measure B reaches 270 of 900 customers, at about €56 for each one reached, because only 60% agreed to usage analysis and 50% of those have usable data. Measure C, a rewards programme, would cost about €2,520 in four months, a small slice of a €150,000 budget, and much of it would go to customers who would have stayed anyway. With a small budget and strict data protection, fund the measure that reaches the customers who agreed first, and leave the mass newsletter (Measure A, €10 per customer) as it is. Run the same steps on your own F1, F2 and F3 to say which measure in your own case actually earns its cost.",
+      "Nehmen wir an, Ihre Maßnahme B erreicht 270 von 900 Kunden, zu etwa 56 € pro erreichtem Kunden, weil nur 60 % der Nutzungsanalyse zugestimmt haben und davon 50 % nutzbare Daten haben. Maßnahme C, ein Bonusprogramm, würde in vier Monaten etwa 2.520 € kosten, ein kleiner Teil eines Budgets von 150.000 €, und ein Großteil davon ginge an Kunden, die ohnehin geblieben wären. Bei kleinem Budget und strengem Datenschutz finanzieren Sie zuerst die Maßnahme, die die zustimmenden Kunden erreicht, und lassen den breiten Newsletter (Maßnahme A, 10 € pro Kunde) unverändert. Wenden Sie dieselben Schritte auf Ihre eigenen F1, F2 und F3 an, um zu sagen, welche Maßnahme sich in Ihrem eigenen Fall tatsächlich lohnt.",
+    ),
     why: "The sentence weighs what each measure gives against what it needs: reach and cost of B, the size of the rebate, the data-protection limit. It quotes a figure from the calculations and names the measure funded first.",
     lookFor: [
       `At least one figure from the calculation (${n(FIG.F1)}, ${n(FIG.members)}, ${n(FIG.F2)}, ${n(FIG.costB)} or ${n(FIG.F3)}).`,
@@ -166,6 +177,10 @@ export function behaviourGuide(i: number): MentorGuide {
   return {
     title: `2.2 · Need ${i + 1}: ${need.label}`,
     answer: `${p.behaviour} (Strength: ${STRENGTH_LABEL[p.strength]})`,
+    example: tt(
+      "For example: “When a renewal letter arrives with no reference to a customer's own usage, customers ask to be taken off the list and one lets the contract lapse, because the letter could have gone to anybody.” That names what customers do and the mechanism behind it in one sentence. With a tally of 3 touchpoints and 1 customer who left (4 points), this need would be rated Mid. Write your own pattern the same way, from your own need and your own tally — not this need and not these counts.",
+      "Zum Beispiel: „Wenn ein Renewal-Brief ohne Bezug auf die eigene Nutzung des Kunden ankommt, bitten Kunden darum, aus dem Verteiler genommen zu werden, und einer lässt den Vertrag auslaufen, weil der Brief an jeden hätte gehen können.“ Das benennt in einem Satz, was Kunden tun, und den Mechanismus dahinter. Bei einer Strichliste von 3 Touchpoints und 1 abgewanderten Kunden (4 Punkte) würde dieses Bedürfnis mit Mittel bewertet. Schreiben Sie Ihr eigenes Muster genauso, aus Ihrem eigenen Bedürfnis und Ihrer eigenen Strichliste – nicht diesem Bedürfnis und nicht diesen Zahlen.",
+    ),
     steps: [
       { label: "Touchpoints tagged with the need", calc: need.short, result: String(TRUTH_COUNTS[p.need]) },
       { label: "Of those, followed by a customer leaving", calc: "from the twelve touchpoints", result: String(TRUTH_LEFT[p.need]) },
@@ -211,6 +226,10 @@ export function whyGuide(): MentorGuide {
   return {
     title: "2.3 · Why the first priority goes first",
     answer: KEY_L1.why,
+    example: tt(
+      "Say your own three measures score Measure A 15, Measure B 15 and Measure C 9, with 3 and 5 weeks to a first effect for A and B. A and B tie on score, so the order between them is decided by which need behind the most lost customers it answers, or how fast it acts — here Measure A goes first because it acts in 3 weeks against Measure B's 5. Say what the three cost against your own €180,000 budget, and name the one need your three measures leave uncovered. Use your own three measures, your own scores and your own budget figure to write the same structure.",
+      "Nehmen wir an, Ihre drei Maßnahmen erreichen die Werte Maßnahme A 15, Maßnahme B 15 und Maßnahme C 9, mit 3 bzw. 5 Wochen bis zur ersten Wirkung für A und B. A und B liegen beim Wert gleichauf, die Reihenfolge zwischen ihnen entscheidet also, welches Bedürfnis hinter den meisten verlorenen Kunden sie beantwortet, oder wie schnell sie wirkt – hier kommt Maßnahme A zuerst, weil sie in 3 Wochen wirkt gegenüber 5 Wochen bei Maßnahme B. Sagen Sie, was die drei gegenüber Ihrem Budget von 180.000 € kosten, und nennen Sie das eine Bedürfnis, das Ihre drei Maßnahmen nicht abdecken. Nutzen Sie Ihre eigenen drei Maßnahmen, Ihre eigenen Werte und Ihre eigene Budgetzahl, um dieselbe Struktur zu schreiben.",
+    ),
     steps: [
       { label: "Model measures and their scores", calc: MODEL_MEASURES.map((id) => `${MEASURE_BY_ID[id].name} ${modelScore(id)}`).join("; "), result: "18, 18, 12" },
       { label: "Cost of the three", calc: MODEL_MEASURES.map((id) => n(MEASURE_BY_ID[id].cost)).join(" + "), result: euro(MODEL_COST) },
@@ -285,6 +304,10 @@ export function weighGuide(): MentorGuide {
   return {
     title: "3.3 · Why not the top level for everyone",
     answer: KEY_R2.weigh,
+    example: tt(
+      "Say Group A (450 customers) agreed to usage analysis, so it can go to Level 3, adding 15 more responders than Level 2 (55 against 40). Group B stays at Level 2 and the prospects at Level 1, because their data allows no more. Level 4 would cost €60,000 more than Level 3 for one extra point of response, and it needs a consent you do not hold. Run the same comparison on your own three groups and your own ladder figures to decide your own levels.",
+      "Nehmen wir an, Gruppe A (450 Kunden) hat der Nutzungsanalyse zugestimmt und kann daher auf Stufe 3 gehen, was 15 Reagierende mehr bringt als Stufe 2 (55 gegenüber 40). Gruppe B bleibt auf Stufe 2 und die Interessenten auf Stufe 1, weil ihre Daten nicht mehr erlauben. Stufe 4 würde 60.000 € mehr kosten als Stufe 3, für einen Punkt mehr Response, und sie braucht eine Einwilligung, die Sie nicht haben. Führen Sie denselben Vergleich mit Ihren eigenen drei Gruppen und Ihren eigenen Leiter-Zahlen durch, um Ihre eigenen Stufen zu entscheiden.",
+    ),
     steps: [
       ...rows.map((r) => ({ label: `Group ${r.g} at level ${r.l.n}: customers × response rate`, calc: `${n(GROUPS[r.g].size)} × ${r.l.rate}%`, result: n(r.r) })),
       { label: "Responders in all", calc: rows.map((r) => n(r.r)).join(" + "), result: n(total) },
@@ -318,6 +341,10 @@ export function mainWhyGuide(): MentorGuide {
   return {
     title: "3.4 · The lever the system serves most",
     answer: `Trust. ${KEY_R2.mainWhy}`,
+    example: tt(
+      "Say your Route 1 evidence shows Relevance was the strongest need, named in the most touchpoints and behind the most lost customers. If Building Block B is the one written into your process as a rule that reaches every customer, name Relevance as the lever your system serves most, and say why: your system reaches it because Building Block B checks what the customer bought before it messages them, and because it is a rule rather than one person's habit, it still works when staff changes. Name your own strongest need from Route 1 and the block of your own three that answers it.",
+      "Nehmen wir an, Ihre Belege aus Route 1 zeigen, dass Relevanz das stärkste Bedürfnis war, genannt in den meisten Touchpoints und hinter den meisten verlorenen Kunden. Wenn Baustein B derjenige ist, der als Regel in Ihren Prozess geschrieben ist und jeden Kunden erreicht, nennen Sie Relevanz als den Hebel, den Ihr System am meisten bedient, und sagen Sie, warum: Ihr System erreicht es, weil Baustein B prüft, was der Kunde gekauft hat, bevor er ihm eine Nachricht schickt, und weil es eine Regel ist und keine Gewohnheit einer Person, funktioniert es auch, wenn das Personal wechselt. Nennen Sie Ihr eigenes stärkstes Bedürfnis aus Route 1 und den Baustein Ihrer eigenen drei, der es beantwortet.",
+    ),
     why: "The best answer names the need or the lever the evidence of Route 1 shows as strongest, and says why the chosen blocks act on it and last.",
     lookFor: ["A lever of the three (emotion, trust, relevance) and the need from Route 1 behind it.", "Why the blocks last or reach everyone."],
     pitfalls: ["Naming the cheapest or the fastest block."],

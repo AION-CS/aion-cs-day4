@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import type { ReactNode } from "react";
 import { CorePill } from "@/components/ui/AnswerBlock";
+import { useOptionalOpen } from "@/store/useOptionalOpen";
 import { tt } from "@/lib/lang";
 
 /**
@@ -11,6 +11,10 @@ import { tt } from "@/lib/lang";
  * #6: nothing is ever a hard lock). Renders a placeholder at the same `id` the page already anchors to
  * (PageNav, scrollToAndFlash), so a jump still lands somewhere even while collapsed. One click reveals the
  * real card/block in full, exactly as if this wrapper were never there; nothing is deleted, only folded.
+ *
+ * Open/closed state lives in the shared `useOptionalOpen` store, not a local `useState`, so a PageNav jump (or
+ * any other `openOptionalBlock(id)` call) can open an item before landing on it — a jump never lands on a
+ * closed container (CLAUDE.md #12). Once open, a small "Hide" puts it back to one quiet line.
  */
 export function OptionalSection({
   id,
@@ -26,8 +30,21 @@ export function OptionalSection({
   reason: string;
   children: ReactNode;
 }) {
-  const [open, setOpen] = useState(false);
-  if (open) return <>{children}</>;
+  const open = useOptionalOpen((s) => !!s.open[id]);
+  const show = useOptionalOpen((s) => s.show);
+  const hide = useOptionalOpen((s) => s.hide);
+
+  if (open)
+    return (
+      <div className="space-y-1.5">
+        <div className="flex justify-end">
+          <button type="button" onClick={() => hide(id)} className="text-micro normal-case tracking-normal text-ash/70 underline decoration-dotted underline-offset-2 hover:text-ash">
+            {tt("Hide", "Ausblenden")}
+          </button>
+        </div>
+        {children}
+      </div>
+    );
   return (
     <div id={id} className="card flex flex-wrap items-center justify-between gap-3 border-dashed border-line bg-mist/40 p-4">
       <div className="min-w-0">
@@ -38,7 +55,7 @@ export function OptionalSection({
         </div>
         <p className="mt-1 text-caption text-ash">{reason}</p>
       </div>
-      <button type="button" onClick={() => setOpen(true)} className="btn-ghost btn-sm shrink-0">
+      <button type="button" onClick={() => show(id)} className="btn-ghost btn-sm shrink-0">
         {tt("Show this", "Diese anzeigen")}
       </button>
     </div>

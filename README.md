@@ -117,15 +117,35 @@ worked answer (with arithmetic) under every other question, in rust, never expor
    **Now a standing rule (CLAUDE.md #35, from 2026-09-28): every route on every future day gets this Core/Optional
    split** — the smallest connected thread to that route's own stated objective stays Core, the rest collapses,
    picked per route (no fixed count) and never by changing a question. The tag appears in **two** places, per the
-   rule: the page map (#28), `(Core)`/`(Optional)` on both the wide-screen tooltip and the mobile list, and **on
-   the card or block itself** — a `CorePill` (`components/ui/AnswerBlock.tsx`) next to every material card's id
-   badge and every answer block's `OBJECTIVE`/`JUDGED` pill, Core in teal, Optional reusing `OptionalSection`'s own
-   neutral pill so the wording can never drift. Verified live in the browser, both routes, both languages.
+   rule: the page map (#28), `Core`/`Optional` always visible on both the wide-screen pill rail and the mobile
+   list, and **on the card or block itself** — a `CorePill` (`components/ui/AnswerBlock.tsx`) next to every
+   material card's id badge and every answer block's `OBJECTIVE`/`JUDGED` pill, Core in teal, Optional reusing
+   `OptionalSection`'s own neutral pill so the wording can never drift. Verified live in the browser, both routes,
+   both languages.
 8. **Two always-live rust "still missing" notices (CLAUDE.md #34, standing rule from 2026-09-28).** Every answer block
    (`components/ui/BlockMissing.tsx`) and the Export bar itself now show a live, rust "still missing" note whenever
    something in them is incomplete — no Check, no click on Export needed first — and both disappear automatically the
    moment the gap is closed. This reports completeness only (empty, too short, wrong count), never a classification's
    correctness, so #4's "clue, not answer" is unaffected. Verified live across both routes, EN and DE.
+9. **Three fixes ported from Day 3, and folded into the standing rules (2026-09-28).** Checking Day 3 (which had
+   independently built the same Core/Optional idea, plus a fix to #23) turned up three gaps in Day 4's own build:
+   - **`MentorGuide.example` (CLAUDE.md #23's Day-3 update) was documented but never wired up here.** `answer` is
+     safe to show verbatim for an open, reflective field, but not for a field whose answer *is* the case's own
+     calculated result or a small fixed-set pick (a felt-cost/order comparison, which measures are funded, which
+     lever is greatest). `sentenceGuide` (1.4), `behaviourGuide` (2.2), `whyGuide` (2.3) and `mainWhyGuide`,
+     `weighGuide` (Route 2, 3.3–3.4) now carry a bilingual `example`: the same method, a different company and
+     different numbers, ending by pointing back at the learner's own inputs. `ExampleAnswer` prefers `example`
+     over `answer` when set, and says so plainly. Verified live in both languages; the mentor's own gated panel is
+     unaffected (it still reads the real `answer`).
+   - **Optional open/closed state moved from local `useState` to a shared, session-only `store/useOptionalOpen.ts`**
+     (a bare `create()`, not persisted), so `PageNav`'s jump handler can `show(id)` a collapsed Optional item
+     before scrolling to it (CLAUDE.md #12: a jump never lands on a closed container) — Day 4's own PageNav did
+     not do this before. `OptionalSection` also gained a "Hide" control once opened, so collapsing is reversible
+     without a reload, matching Day 3's `OptionalReveal`.
+   - **The wide-screen page map pill only showed `Core`/`Optional` inside its hover/focus tooltip**, while the
+     mobile list already showed it inline and always visible — an inconsistency the user caught directly. Both
+     screen sizes now show it without needing to hover; CLAUDE.md #35 was tightened to require this explicitly.
+   All three verified live (EN/DE, both routes); `npx tsc --noEmit` and `npm run verify:calc` pass.
 
 ## Coverage: where each task block is taught
 
