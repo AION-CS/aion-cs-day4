@@ -1,12 +1,14 @@
 "use client";
 
 import { ExportBar } from "@/components/ui/ExportBar";
+import { OptionalSection } from "@/components/ui/OptionalSection";
 import { Block11, Block12, Block13, Block14, Block15 } from "@/components/task1/Part1";
 import { Block21, Block22, Block23, Block24 } from "@/components/task1/Part2";
 import { Callout } from "@/components/ui/MaterialCard";
 import { BUDGET, MONTHS } from "@/data/measures";
 import { retentionBody } from "@/lib/exportDoc";
 import { l1Missing } from "@/lib/missing";
+import { BLOCK_MINUTES } from "@/lib/routes";
 import { euro, tt } from "@/lib/lang";
 import { exportName } from "@/lib/slug";
 import { usePersisted } from "@/store/usePersisted";
@@ -95,15 +97,50 @@ export function Task1() {
 
       <PartHeading id="part-1" n={1} title={tt("Understand the emotional effect", "Die emotionale Wirkung verstehen")} level={tt("Level 1 · Knowledge", "Level 1 · Wissen")} />
       <Block11 />
-      <Block12 />
-      <Block13 />
+      <OptionalSection
+        id="block-1-2"
+        title={tt("Block 1.2 · Name the trigger, and what you would not send", "Block 1.2 · Den Trigger benennen, und was Sie nicht versenden würden")}
+        minutes={BLOCK_MINUTES["1.2"]}
+        reason={tt("Sales-ethics side note on triggers; Block 1.1 already covers the emotion reading the plan needs.", "Randthema zur Ethik von Triggern; Block 1.1 deckt das für den Plan nötige Lesen von Emotionen schon ab.")}
+      >
+        <Block12 />
+      </OptionalSection>
+      <OptionalSection
+        id="block-1-3"
+        title={tt("Block 1.3 · Three approaches", "Block 1.3 · Drei Ansätze")}
+        minutes={BLOCK_MINUTES["1.3"]}
+        reason={tt("Practises the same four emotions in your own words; Block 1.1 already teaches the core skill.", "Übt dieselben vier Emotionen in eigenen Worten; Block 1.1 vermittelt die Kernfertigkeit bereits.")}
+      >
+        <Block13 />
+      </OptionalSection>
       <Block14 />
-      <Block15 />
+      <OptionalSection
+        id="block-1-5"
+        title={tt("Block 1.5 · Coaching reflection", "Block 1.5 · Coaching-Reflexion")}
+        minutes={BLOCK_MINUTES["1.5"]}
+        reason={tt("A reflective bridge between Level 1 and Level 2, not content the Retention Plan itself needs.", "Eine reflektierende Brücke zwischen Level 1 und Level 2, kein Inhalt, den der Retention Plan selbst braucht.")}
+      >
+        <Block15 />
+      </OptionalSection>
 
       <PartHeading id="part-2" n={2} title={tt("Analyse and act", "Analysieren und handeln")} level={tt("Level 2 · Application", "Level 2 · Anwendung")} />
       <Block21 />
-      <Block22 />
-      <Block23 />
+      <OptionalSection
+        id="block-2-2"
+        title={tt("Block 2.2 · Four needs, their strength, what is missing", "Block 2.2 · Vier Bedürfnisse, ihre Stärke, was fehlt")}
+        minutes={BLOCK_MINUTES["2.2"]}
+        reason={tt("Elaborates Block 2.1's tally into named, rated needs; 2.1's diagnosis is the part the plan needs.", "Vertieft die Strichliste aus Block 2.1 zu benannten, bewerteten Bedürfnissen; die Diagnose aus 2.1 ist der Teil, den der Plan braucht.")}
+      >
+        <Block22 />
+      </OptionalSection>
+      <OptionalSection
+        id="block-2-3"
+        title={tt("Block 2.3 · Three measures, scored and ordered", "Block 2.3 · Drei Maßnahmen, bewertet und geordnet")}
+        minutes={BLOCK_MINUTES["2.3"]}
+        reason={tt("The full scored measure-choice; Block 1.4 already drills the same weighing method on a smaller set.", "Die vollständige, bewertete Maßnahmenwahl; Block 1.4 übt dieselbe Abwägungsmethode bereits an einer kleineren Auswahl.")}
+      >
+        <Block23 />
+      </OptionalSection>
       <Block24 />
 
       <ExportBar

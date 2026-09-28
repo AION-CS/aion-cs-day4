@@ -2,10 +2,15 @@
 
 import { CARDS_A } from "@/components/materi/CardsA";
 import { CARDS_B } from "@/components/materi/CardsB";
+import { OptionalSection } from "@/components/ui/OptionalSection";
 import { ReferencesAccordion } from "@/components/ui/ReferencesAccordion";
+import { MATERIALS, materialAnchorId } from "@/data/materialIndex";
 import { SECTIONS } from "@/data/materialIndex";
 import type { RefKey } from "@/data/references";
 import { tt } from "@/lib/lang";
+
+const CARDS_A_META = MATERIALS.filter((m) => m.block === "A");
+const CARDS_B_META = MATERIALS.filter((m) => m.block === "B");
 
 /** The material block of a route: one continuous run of study cards, then the block's own reference list. */
 
@@ -93,9 +98,22 @@ export function MateriA() {
           "Sieben Karten, Level 1 und Level 2 in einem Durchgang: erst das Wissen (das Gehirn, vier Emotionen, drei Trigger, Behavioral Targeting, Loyalty-Programme), dann die Anwendung (einen Vertriebsprozess lesen, Maßnahmen und ein Loyalty-Konzept wählen). Jedes Diagramm nutzt ein anderes Unternehmen, Brenner Netzwerke, damit die Aufgabe nie für Sie beantwortet wird.",
         )}
       </p>
-      {CARDS_A.map((C, i) => (
-        <C key={i} />
-      ))}
+      {CARDS_A.map((C, i) => {
+        const m = CARDS_A_META[i];
+        return m.optional ? (
+          <OptionalSection
+            key={i}
+            id={materialAnchorId(m.id)}
+            title={`${m.id} · ${m.title}`}
+            minutes={m.minutes}
+            reason={tt("Deepens a card a Core task block already covers. Not needed to complete the Retention Plan.", "Vertieft eine Karte, die ein Core-Task-Block schon abdeckt. Für den Retention Plan nicht nötig.")}
+          >
+            <C />
+          </OptionalSection>
+        ) : (
+          <C key={i} />
+        );
+      })}
       <ReferencesAccordion block="A" keys={REFS_A} note={tt("Check every source before you teach from it: page numbers and editions differ between printings, and the legal texts are quoted in outline.", "Prüfen Sie jede Quelle, bevor Sie daraus unterrichten: Seitenzahlen und Auflagen unterscheiden sich zwischen den Ausgaben, und die Rechtstexte sind nur im Umriss zitiert.")} />
     </Block>
   );
@@ -111,9 +129,22 @@ export function MateriB() {
           "Sechs Karten für Level 3. Sie hören auf, Maßnahmen zu wählen, und beginnen, Bedingungen für jeden Kunden zu gestalten. Jede Karte endet in Regeln, die die Aufgabe nutzt; jedes Diagramm nutzt Brenner Netzwerke, einen anderen Anbieter.",
         )}
       </p>
-      {CARDS_B.map((C, i) => (
-        <C key={i} />
-      ))}
+      {CARDS_B.map((C, i) => {
+        const m = CARDS_B_META[i];
+        return m.optional ? (
+          <OptionalSection
+            key={i}
+            id={materialAnchorId(m.id)}
+            title={`${m.id} · ${m.title}`}
+            minutes={m.minutes}
+            reason={tt("Deepens a card a Core task block already covers. Not needed to complete the Strategy Memo.", "Vertieft eine Karte, die ein Core-Task-Block schon abdeckt. Für das Strategy Memo nicht nötig.")}
+          >
+            <C />
+          </OptionalSection>
+        ) : (
+          <C key={i} />
+        );
+      })}
       <ReferencesAccordion block="B" keys={REFS_B} note={tt("Check every source before you teach from it: page numbers and editions differ between printings, and the legal texts are quoted in outline.", "Prüfen Sie jede Quelle, bevor Sie daraus unterrichten: Seitenzahlen und Auflagen unterscheiden sich zwischen den Ausgaben, und die Rechtstexte sind nur im Umriss zitiert.")} />
     </Block>
   );

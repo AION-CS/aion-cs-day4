@@ -3,6 +3,7 @@
 import { Block31, Block32, Block33, Block34, Block35, Block36, Block37 } from "@/components/task2/Blocks";
 import { MemoPanel } from "@/components/task2/MemoPanel";
 import { ExportBar } from "@/components/ui/ExportBar";
+import { OptionalSection } from "@/components/ui/OptionalSection";
 import { Callout } from "@/components/ui/MaterialCard";
 import { NEEDS } from "@/data/needs";
 import { MEASURE_BY_ID } from "@/data/measures";
@@ -11,7 +12,7 @@ import { Gloss } from "@/lib/glossify";
 import { euro, tt } from "@/lib/lang";
 import { memoBody } from "@/lib/exportDoc";
 import { r2Missing } from "@/lib/missing";
-import { TASK2_MINUTES } from "@/lib/routes";
+import { BLOCK_MINUTES, TASK2_MINUTES } from "@/lib/routes";
 import { exportName } from "@/lib/slug";
 import { useJumpTo } from "@/lib/useJumpTo";
 import { usePersisted } from "@/store/usePersisted";
@@ -100,11 +101,39 @@ export function Task2() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
         <div className="min-w-0 space-y-6 pb-14 lg:pb-0">
           <Block31 />
-          <Block32 />
-          <Block33 />
+          <OptionalSection
+            id="block-3-2"
+            title={tt("Block 3.2 · Define the three behaviour levers: emotion, trust, relevance", "Block 3.2 · Die drei Verhaltenshebel definieren: Emotion, Vertrauen, Relevanz")}
+            minutes={BLOCK_MINUTES["3.2"]}
+            reason={tt("Deepens the vision from Block 3.1 into three named levers; the loyalty system in Block 3.4 does not require it.", "Vertieft die Vision aus Block 3.1 zu drei benannten Hebeln; das Loyalty-System in Block 3.4 setzt es nicht voraus.")}
+          >
+            <Block32 />
+          </OptionalSection>
+          <OptionalSection
+            id="block-3-3"
+            title={tt("Block 3.3 · Weigh personalisation against effort and data protection", "Block 3.3 · Personalisierung gegen Aufwand und Datenschutz abwägen")}
+            minutes={BLOCK_MINUTES["3.3"]}
+            reason={tt("How far to personalise each group; a separate design question from the loyalty system itself.", "Wie weit jede Gruppe personalisiert wird; eine eigene Designfrage, getrennt vom Loyalty-System selbst.")}
+          >
+            <Block33 />
+          </OptionalSection>
           <Block34 />
-          <Block35 />
-          <Block36 />
+          <OptionalSection
+            id="block-3-5"
+            title={tt("Block 3.5 · Risk analysis: what if we misjudge the customer?", "Block 3.5 · Risikoanalyse: was, wenn wir den Kunden falsch einschätzen?")}
+            minutes={BLOCK_MINUTES["3.5"]}
+            reason={tt("A closer look at what could go wrong with the system from Block 3.4; the decision in Block 3.7 does not require it.", "Ein genauerer Blick darauf, was am System aus Block 3.4 schiefgehen könnte; die Entscheidung in Block 3.7 setzt es nicht voraus.")}
+          >
+            <Block35 />
+          </OptionalSection>
+          <OptionalSection
+            id="block-3-6"
+            title={tt("Block 3.6 · The implementation architecture: fund, sequence, own", "Block 3.6 · Die Umsetzungsarchitektur: finanzieren, sequenzieren, verantworten")}
+            minutes={BLOCK_MINUTES["3.6"]}
+            reason={tt("Turns the chosen system into a funded, scheduled plan; the decision in Block 3.7 can still be made and defended without it.", "Macht aus dem gewählten System einen finanzierten, terminierten Plan; die Entscheidung in Block 3.7 lässt sich auch ohne es treffen und begründen.")}
+          >
+            <Block36 />
+          </OptionalSection>
           <Block37 />
           <ExportBar id="export-l3" previewTitle={tt("Preview of your memo", "Vorschau Ihres Memos")} exportLabel={tt("Export the Strategy Memo", "Strategy Memo exportieren")} docTitle="Strategy Memo" filename={filename} missing={missing} buildBody={() => memoBody(p)} showPreview={false} />
         </div>

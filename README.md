@@ -95,6 +95,37 @@ worked answer (with arithmetic) under every other question, in rust, never expor
 5. **Sources to re-check before teaching:** citations are given by their usual details; the current wording of § 5 and § 7 UWG,
    Art. 5–7 and 21 GDPR and the Planet49 judgment should be verified with the legal team before teaching.
 6. **Word documents (#31)** live in `../materi-task-docx/` (English), built with the guide's pipeline.
+7. **Core/Optional collapsing on Route 1, by explicit user request (2026-09-28).** The user asked to shorten Route 1 to
+   2 Core blocks per level without changing any question. Core: **1.1** (sort what customers feel) and **1.4** (weigh
+   three measures) for Level 1; **2.1** (twelve touchpoints) and **2.4** (the loyalty concept) for Level 2 — one clean
+   diagnose → emotion → target-within-constraints → build-loyalty thread. Optional (collapsed by default via
+   `components/ui/OptionalSection.tsx`, one click to open, never removed — CLAUDE.md #6): **1.2, 1.3, 1.5, 2.2, 2.3**,
+   each of which deepens or repeats a skill a Core block already teaches. Materi cards **A1** and **A3** are collapsed
+   the same way, since no Core block cites them (`data/materialIndex.ts`'s `optional` flag; a card any Core block
+   needs stays required even if an Optional block also cites it). The dossier ring, the page map's done/total count
+   and the Retention Plan's missing list all count Core only (`lib/progress.ts` `OPTIONAL_BLOCKS`/`isOptionalBlock`),
+   mirroring the Friday day's Core/Optional split (#29) applied here to an ordinary day at the user's request.
+
+   **Route 2 got the same treatment on request (2026-09-28).** Route 2's seven blocks form one sequential chain
+   (vision → levers → personalisation ladder → loyalty system → risks → architecture → decision), so Core here is the
+   three that connect most directly to the route's own objective ("decide, in writing, before the data is clear"):
+   **3.1** (target vision), **3.4** (the loyalty system — the day's running theme, Core in both routes) and **3.7**
+   (the decision) — set the target → design what is built → decide. Optional: **3.2, 3.3, 3.5, 3.6**, each a deeper
+   design question the decision does not strictly require. Materi: **B1, B3, B6** stay required (cited by a Core
+   block); **B2, B4, B5** are collapsed.
+
+   **Now a standing rule (CLAUDE.md #35, from 2026-09-28): every route on every future day gets this Core/Optional
+   split** — the smallest connected thread to that route's own stated objective stays Core, the rest collapses,
+   picked per route (no fixed count) and never by changing a question. The tag appears in **two** places, per the
+   rule: the page map (#28), `(Core)`/`(Optional)` on both the wide-screen tooltip and the mobile list, and **on
+   the card or block itself** — a `CorePill` (`components/ui/AnswerBlock.tsx`) next to every material card's id
+   badge and every answer block's `OBJECTIVE`/`JUDGED` pill, Core in teal, Optional reusing `OptionalSection`'s own
+   neutral pill so the wording can never drift. Verified live in the browser, both routes, both languages.
+8. **Two always-live rust "still missing" notices (CLAUDE.md #34, standing rule from 2026-09-28).** Every answer block
+   (`components/ui/BlockMissing.tsx`) and the Export bar itself now show a live, rust "still missing" note whenever
+   something in them is incomplete — no Check, no click on Export needed first — and both disappear automatically the
+   moment the gap is closed. This reports completeness only (empty, too short, wrong count), never a classification's
+   correctness, so #4's "clue, not answer" is unaffected. Verified live across both routes, EN and DE.
 
 ## Coverage: where each task block is taught
 

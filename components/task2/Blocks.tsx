@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Toggles } from "@/components/materi/kit";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
+import { BlockMissing } from "@/components/ui/BlockMissing";
 import { BudgetBar } from "@/components/ui/BudgetBar";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { CheckBar, OptionList, Reading, ScorePick, TextBox } from "@/components/ui/Inputs";
@@ -74,6 +75,7 @@ export function Block31() {
       title={tt("Block 3.1 · Set the target vision", "Block 3.1 · Die Zielvision festlegen")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.1"]}
+      core={true}
       findIt={tt("Route 2 → Task 2 → “Where Route 1 left off” in the case above, and the five visions below. Answer by choosing one and writing it in your own words.", "Route 2 → Task 2 → „Wo Route 1 stehen geblieben ist“ im Fall oben und die fünf Visionen unten. Antworten Sie, indem Sie eine wählen und sie in eigenen Worten formulieren.")}
     >
       <MaterialRefs refs={["B1"]} />
@@ -108,6 +110,7 @@ export function Block31() {
       <ExampleAnswer id="vision-text-example" guide={visionTextGuide()} />
       {mentor && <MentorGuide guide={visionTextGuide()} />}
       <CheckBar onCheck={check} checkLabel={tt("Check my vision", "Meine Vision prüfen")} checks={r2.checks} />
+      <BlockMissing block="3.1" route={2} />
     </AnswerBlock>
   );
 }
@@ -130,6 +133,7 @@ export function Block32() {
       title={tt("Block 3.2 · Define the three behaviour levers: emotion, trust, relevance", "Block 3.2 · Die drei Verhaltenshebel definieren: Emotion, Vertrauen, Relevanz")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.2"]}
+      core={false}
       findIt={tt("Route 2 → Task 2 → the three levers below. For each, answer the customer's question, the signal, the phase and what your system does.", "Route 2 → Task 2 → die drei Hebel unten. Beantworten Sie für jeden die Frage des Kunden, das Signal, die Phase und was Ihr System tut.")}
     >
       <MaterialRefs refs={["B1"]} />
@@ -178,6 +182,7 @@ export function Block32() {
         </Reading>
       )}
       <AnswerKey block={leverKey()} />
+      <BlockMissing block="3.2" route={2} />
     </AnswerBlock>
   );
 }
@@ -202,6 +207,7 @@ export function Block33() {
       title={tt("Block 3.3 · Weigh personalisation against effort and data protection", "Block 3.3 · Personalisierung gegen Aufwand und Datenschutz abwägen")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.3"]}
+      core={false}
       findIt={tt("Route 2 → Task 2 → the table below: three customer groups down the side, five levels of personalisation across the top. Each cell shows how many customers would respond. Answer by choosing one level per group.", "Route 2 → Task 2 → die Tabelle unten: drei Kundengruppen an der Seite, fünf Stufen der Personalisierung oben. Jede Zelle zeigt, wie viele Kunden reagieren würden. Antworten Sie, indem Sie pro Gruppe eine Stufe wählen.")}
     >
       <MaterialRefs refs={["B2", "A4"]} />
@@ -341,6 +347,7 @@ export function Block33() {
       </TextBox>
       <ExampleAnswer id="weigh-example" guide={weighGuide()} />
       {mentor && <MentorGuide guide={weighGuide()} />}
+      <BlockMissing block="3.3" route={2} />
     </AnswerBlock>
   );
 }
@@ -368,6 +375,7 @@ export function Block34() {
       title={tt("Block 3.4 · A loyalty system, not just bonuses", "Block 3.4 · Ein Loyalty-System, nicht nur Boni")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.4"]}
+      core={true}
       findIt={tt("Route 2 → Task 2 → the seven building blocks below, each with what it depends on and how its cost behaves. Answer by choosing three, rating each on the four tests and naming the lever your system serves most.", "Route 2 → Task 2 → die sieben Bausteine unten, jeweils mit dem, wovon sie abhängen, und wie sich ihre Kosten verhalten. Antworten Sie, indem Sie drei wählen, jeden nach den vier Tests bewerten und den Hebel nennen, den Ihr System am meisten bedient.")}
     >
       <MaterialRefs refs={["B3", "A5"]} />
@@ -477,6 +485,7 @@ export function Block34() {
           {mentor && <MentorGuide guide={mainWhyGuide()} />}
         </div>
       )}
+      <BlockMissing block="3.4" route={2} />
     </AnswerBlock>
   );
 }
@@ -496,6 +505,7 @@ export function Block35() {
       title={tt("Block 3.5 · Risk analysis: what if we misjudge the customer?", "Block 3.5 · Risikoanalyse: was, wenn wir den Kunden falsch einschätzen?")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.5"]}
+      core={false}
       findIt={tt("Route 2 → Task 2 → the eight risks below. Answer by choosing three that are misjudgments of customer psychology or acceptance, rating them, choosing the early signal and writing the response.", "Route 2 → Task 2 → die acht Risiken unten. Antworten Sie, indem Sie drei wählen, die Fehleinschätzungen der Kundenpsychologie oder -akzeptanz sind, sie bewerten, das Frühsignal wählen und die Reaktion schreiben.")}
     >
       <MaterialRefs refs={["B4"]} />
@@ -604,6 +614,7 @@ export function Block35() {
         </Reading>
       )}
       <AnswerKey block={riskKey()} />
+      <BlockMissing block="3.5" route={2} />
     </AnswerBlock>
   );
 }
@@ -642,6 +653,7 @@ export function Block36() {
       title={tt("Block 3.6 · The implementation architecture: fund, sequence, own", "Block 3.6 · Die Umsetzungsarchitektur: finanzieren, sequenzieren, verantworten")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.6"]}
+      core={false}
       findIt={tt(`Route 2 → Task 2 → the items below: your three building blocks from Block 3.4, the personalisation engine from Block 3.3 and the two enabling items. The budget is ${euro(R2_BUDGET)} over ${R2_MONTHS} months. Answer in the item cards.`, `Route 2 → Task 2 → die Punkte unten: Ihre drei Bausteine aus Block 3.4, die Personalisierungs-Engine aus Block 3.3 und die zwei Enabler-Punkte. Das Budget beträgt ${euro(R2_BUDGET)} über ${R2_MONTHS} Monate. Antworten Sie in den Punkte-Karten.`)}
     >
       <MaterialRefs refs={["B5"]} />
@@ -801,6 +813,7 @@ export function Block36() {
         </Reading>
       )}
       <AnswerKey block={ownerKey(f, levels)} />
+      <BlockMissing block="3.6" route={2} />
     </AnswerBlock>
   );
 }
@@ -820,6 +833,7 @@ export function Block37() {
       title={tt("Block 3.7 · Decide although the data is unclear", "Block 3.7 · Entscheiden, obwohl die Datenlage unklar ist")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["3.7"]}
+      core={true}
       findIt={tt("Route 2 → Task 2 → your own answers in Blocks 3.1 to 3.6, the baselines below, and the regret table in Materi B6. Answer in the fields below.", "Route 2 → Task 2 → Ihre eigenen Antworten in den Blöcken 3.1 bis 3.6, die Baselines unten und die Regret-Tabelle in Materi B6. Antworten Sie in den Feldern unten.")}
     >
       <MaterialRefs refs={["B6"]} />
@@ -947,6 +961,7 @@ export function Block37() {
       )}
       <AnswerKey block={decisionKey()} />
       <AnswerKey block={tripKey()} />
+      <BlockMissing block="3.7" route={2} />
     </AnswerBlock>
   );
 }

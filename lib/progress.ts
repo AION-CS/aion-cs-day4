@@ -14,6 +14,17 @@ import type { Persisted } from "@/store/useStore";
 
 export type TaskBlockId = "b11" | "b12" | "b13" | "b14" | "b15" | "b21" | "b22" | "b23" | "b24" | "b31" | "b32" | "b33" | "b34" | "b35" | "b36" | "b37";
 
+/**
+ * Blocks that deepen or repeat a skill a Core block already teaches, rather than sit on the shortest path to
+ * their route's own objective. Collapsed by default via OptionalSection, never removed (CLAUDE.md #6), never
+ * required by the missing list or the dossier ring. Route 1's Core thread: 1.1 (emotion), 1.4 (targeting),
+ * 2.1 (diagnosis), 2.4 (loyalty). Route 2's Core thread: 3.1 (vision), 3.4 (loyalty system), 3.7 (decision) —
+ * set the target, design what is built, decide. The rest of each route deepens one of those, still fully
+ * usable (#6), just not required for the export.
+ */
+export const OPTIONAL_BLOCKS: TaskBlockId[] = ["b12", "b13", "b15", "b22", "b23", "b32", "b33", "b35", "b36"];
+export const isOptionalBlock = (b: TaskBlockId) => (OPTIONAL_BLOCKS as string[]).includes(b);
+
 const len = (t: string) => t.trim().length;
 export const MIN_SENTENCE = 40;
 export const MIN_LINE = 30;
@@ -79,12 +90,15 @@ const BLOCKS_OF: Record<RouteNo, TaskBlockId[]> = {
   2: ["b31", "b32", "b33", "b34", "b35", "b36", "b37"],
 };
 
-/** Dossier progress for one route: its cards marked read + its task blocks completed. */
+/** Dossier progress for one route: its Core cards marked read + its Core task blocks completed. Optional cards and
+ * blocks (CLAUDE.md-style Core/Optional split, #29) sit outside the ring in both count and total, exactly like a
+ * Friday day's Route 1. */
 export function dossierProgress(p: Persisted, route: RouteNo): { done: number; total: number } {
   const block = route === 1 ? "A" : "B";
-  const cards = MATERIALS.filter((m) => m.block === block);
+  const cards = MATERIALS.filter((m) => m.block === block && !m.optional);
   const read = cards.filter((m) => p.ui.sectionsRead[m.id]).length;
   const tb = taskBlocks(p);
-  const done = BLOCKS_OF[route].filter((b) => tb[b]).length;
-  return { done: read + done, total: cards.length + BLOCKS_OF[route].length };
+  const coreBlocks = BLOCKS_OF[route].filter((b) => !isOptionalBlock(b));
+  const done = coreBlocks.filter((b) => tb[b]).length;
+  return { done: read + done, total: cards.length + coreBlocks.length };
 }

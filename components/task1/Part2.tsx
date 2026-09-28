@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Toggles } from "@/components/materi/kit";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
+import { BlockMissing } from "@/components/ui/BlockMissing";
 import { BudgetBar } from "@/components/ui/BudgetBar";
 import { Field } from "@/components/ui/Field";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
@@ -47,6 +48,7 @@ export function Block21() {
       title={tt("Block 2.1 · Find the emotional weakness in twelve touchpoints", "Block 2.1 · Die emotionale Schwachstelle in zwölf Touchpoints finden")}
       kind="OBJECTIVE"
       minutes={BLOCK_MINUTES["2.1"]}
+      core={true}
       findIt={tt("Route 1 → Task 1 → “Twelve touchpoints” in the case above. Read each one, find the phrase that decides it, and answer on the tagging board below.", "Route 1 → Task 1 → „Zwölf Touchpoints“ im Fall oben. Lesen Sie jeden, finden Sie die Formulierung, die ihn entscheidet, und antworten Sie auf dem Zuordnungsbrett unten.")}
     >
       <MaterialRefs refs={["A6"]} />
@@ -103,6 +105,7 @@ export function Block21() {
         {tt("Words in the touchpoints, explained in plain language:", "Wörter in den Touchpoints, in einfacher Sprache erklärt:")} <Gloss>{tt("go-live, outage, backup, ticket, upsell, users' day, batch job.", "Go-live, Ausfall, Backup, Ticket, Upsell, Nutzertag, Batch-Job.")}</Gloss>
       </p>
       <AnswerKey block={touchKey()} />
+      <BlockMissing block="2.1" route={1} />
     </AnswerBlock>
   );
 }
@@ -136,6 +139,7 @@ export function Block22() {
       title={tt("Block 2.2 · Name the four customer needs, rate them, say what is missing", "Block 2.2 · Die vier Kundenbedürfnisse benennen, bewerten und sagen, was fehlt")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["2.2"]}
+      core={false}
       findIt={tt("Route 1 → Task 1 → “Your tally” directly below: it counts your own tags from Block 2.1. Answer in the four need rows and the two fields under them.", "Route 1 → Task 1 → „Ihre Strichliste“ direkt darunter: Sie zählt Ihre eigenen Zuordnungen aus Block 2.1. Antworten Sie in den vier Bedürfnis-Zeilen und den zwei Feldern darunter.")}
     >
       <MaterialRefs refs={["A6"]} />
@@ -274,6 +278,7 @@ export function Block22() {
         <ExampleAnswer id="info-text-example" guide={infoTextGuide()} />
         {mentor && <MentorGuide guide={infoTextGuide()} />}
       </div>
+      <BlockMissing block="2.2" route={1} />
     </AnswerBlock>
   );
 }
@@ -327,6 +332,7 @@ export function Block23() {
       title={tt("Block 2.3 · Choose three measures, score them, put them in order", "Block 2.3 · Drei Maßnahmen wählen, bewerten und in Reihenfolge bringen")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["2.3"]}
+      core={false}
       findIt={tt(`Route 1 → Task 1 → “The limits” in the case above (${euro(BUDGET)}, ${MONTHS} months, data protection critical) and the nine measures below. Answer by choosing three and filling their cards.`, `Route 1 → Task 1 → „Die Grenzen“ im Fall oben (${euro(BUDGET)}, ${MONTHS} Monate, Datenschutz kritisch) und die neun Maßnahmen unten. Antworten Sie, indem Sie drei wählen und ihre Karten ausfüllen.`)}
     >
       <MaterialRefs refs={["A7", "A4"]} />
@@ -550,6 +556,7 @@ export function Block23() {
           {mentor && <MentorGuide guide={whyGuide()} />}
         </div>
       )}
+      <BlockMissing block="2.3" route={1} />
     </AnswerBlock>
   );
 }
@@ -594,6 +601,7 @@ export function Block24() {
       title={tt("Block 2.4 · Design a simple loyalty concept", "Block 2.4 · Ein einfaches Loyalty-Konzept entwerfen")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["2.4"]}
+      core={true}
       findIt={tt("Route 1 → Task 1 → the types, the benefit menu and the budget bar below. Your three measures from Block 2.3 and your four needs from Block 2.2 count here. Answer by choosing and by writing in the last field.", "Route 1 → Task 1 → die Typen, das Vorteilsmenü und der Budgetbalken unten. Ihre drei Maßnahmen aus Block 2.3 und Ihre vier Bedürfnisse aus Block 2.2 zählen hier. Antworten Sie durch Auswählen und durch Schreiben im letzten Feld.")}
     >
       <MaterialRefs refs={["A5", "A7"]} />
@@ -732,6 +740,7 @@ export function Block24() {
           {planOver(l1) > 0 ? tt(` The whole plan is ${euro(planOver(l1))} over the budget.`, ` Der gesamte Plan liegt ${euro(planOver(l1))} über dem Budget.`) : ""}
         </Reading>
       )}
+      <BlockMissing block="2.4" route={1} />
     </AnswerBlock>
   );
 }

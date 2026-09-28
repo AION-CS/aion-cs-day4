@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
+import { BlockMissing } from "@/components/ui/BlockMissing";
 import { CalcDiagnosis } from "@/components/ui/CalcDiagnosis";
 import { Field } from "@/components/ui/Field";
 import { FormulaBuilder } from "@/components/ui/FormulaBuilder";
@@ -57,6 +58,7 @@ export function Block11() {
       title={tt("Block 1.1 · Sort what customers feel", "Block 1.1 · Einordnen, was Kunden fühlen")}
       kind="OBJECTIVE"
       minutes={BLOCK_MINUTES["1.1"]}
+      core={true}
       findIt={tt("Route 1 → Task 1 → “What customers told us” in the case above. The eight statements are customers' own words about why a competitor's offer felt more attractive. Answer on the sort board below.", "Route 1 → Task 1 → „Was Kunden uns gesagt haben“ im Fall oben. Die acht Aussagen sind eigene Worte von Kunden dazu, warum das Angebot eines Wettbewerbers attraktiver wirkte. Antworten Sie auf dem Sortierbrett unten.")}
     >
       <MaterialRefs refs={["A2"]} />
@@ -124,6 +126,7 @@ export function Block11() {
         {tt("Words in the statements, explained in plain language:", "Wörter in den Aussagen, in einfacher Sprache erklärt:")} <Gloss>{tt("data centre, restore time, liability, migration, forum, round table.", "Rechenzentrum, Wiederherstellungszeit, Haftung, Migration, Forum, Round Table.")}</Gloss>
       </p>
       <AnswerKey block={feelingKey()} />
+      <BlockMissing block="1.1" route={1} />
     </AnswerBlock>
   );
 }
@@ -143,6 +146,7 @@ export function Block12() {
       title={tt("Block 1.2 · Name the trigger, and say which lines you would not send", "Block 1.2 · Den Trigger benennen und sagen, welche Zeilen Sie nicht senden würden")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["1.2"]}
+      core={false}
       findIt={tt("Route 1 → Task 1 → “Eight lines from sales material” in the case above. Each line says where it appeared. Answer on the sort board, then in the list under it.", "Route 1 → Task 1 → „Acht Zeilen aus Vertriebsmaterial“ im Fall oben. Jede Zeile sagt, wo sie erschien. Antworten Sie auf dem Sortierbrett, dann in der Liste darunter.")}
     >
       <MaterialRefs refs={["A3"]} />
@@ -234,6 +238,7 @@ export function Block12() {
         </div>
         <AnswerKey block={noSendKey()} />
       </div>
+      <BlockMissing block="1.2" route={1} />
     </AnswerBlock>
   );
 }
@@ -262,6 +267,7 @@ export function Block13() {
       title={tt("Block 1.3 · Three approaches that convince customers more strongly", "Block 1.3 · Drei Ansätze, die Kunden stärker überzeugen")}
       kind="JUDGED"
       minutes={BLOCK_MINUTES["1.3"]}
+      core={false}
       findIt={tt("Route 1 → Task 1 → your own answers to Blocks 1.1 and 1.2 above, and the four emotions in Materi A2. Answer in the three fields below.", "Route 1 → Task 1 → Ihre eigenen Antworten zu Block 1.1 und 1.2 oben und die vier Emotionen in Materi A2. Antworten Sie in den drei Feldern unten.")}
     >
       <MaterialRefs refs={["A1", "A2", "A3"]} />
@@ -332,6 +338,7 @@ export function Block13() {
               )}
         </Reading>
       )}
+      <BlockMissing block="1.3" route={1} />
     </AnswerBlock>
   );
 }
@@ -378,6 +385,7 @@ export function Block14() {
       title={tt("Block 1.4 · Weigh the three measures: reach, cost and risk", "Block 1.4 · Die drei Maßnahmen abwägen: Reichweite, Kosten und Risiko")}
       kind="OBJECTIVE + JUDGED"
       minutes={BLOCK_MINUTES["1.4"]}
+      core={true}
       findIt={tt("Route 1 → Task 1 → the two tables “The customer base” and “The three measures” directly below. The numbers are printed there. Answer in the fields under the tables.", "Route 1 → Task 1 → die beiden Tabellen „Die Kundenbasis“ und „Die drei Maßnahmen“ direkt darunter. Die Zahlen stehen dort. Antworten Sie in den Feldern unter den Tabellen.")}
     >
       <MaterialRefs refs={["A4", "A5"]} />
@@ -544,6 +552,7 @@ export function Block14() {
               )}
         </Reading>
       )}
+      <BlockMissing block="1.4" route={1} />
     </AnswerBlock>
   );
 }
@@ -565,6 +574,7 @@ export function Block15() {
       title={tt("Block 1.5 · Coaching reflection: from Level 1 to Level 2", "Block 1.5 · Coaching-Reflexion: von Level 1 zu Level 2")}
       kind="JUDGED"
       minutes={BLOCK_MINUTES["1.5"]}
+      core={false}
       findIt={tt("Route 1 → Task 1 → your own answers in Blocks 1.1 to 1.4 above, and the coaching focus in Materi A1 and A4. Answer in the three fields below.", "Route 1 → Task 1 → Ihre eigenen Antworten in den Blöcken 1.1 bis 1.4 oben und der Coaching-Fokus in Materi A1 und A4. Antworten Sie in den drei Feldern unten.")}
     >
       <MaterialRefs refs={["A1", "A4", "A5"]} />
@@ -578,6 +588,7 @@ export function Block15() {
           {mentor && <MentorGuide guide={reflectGuide(f.k)} />}
         </div>
       ))}
+      <BlockMissing block="1.5" route={1} />
     </AnswerBlock>
   );
 }

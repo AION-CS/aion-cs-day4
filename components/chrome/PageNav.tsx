@@ -30,8 +30,8 @@ export function PageNav({ route }: { route: RouteNo }) {
 
   const isDone = (it: NavItem) =>
     hydrated && !!it.done && ("card" in it.done ? !!p.ui.sectionsRead[it.done.card] : blocks[it.done.block]);
-  const doneCount = items.filter(isDone).length;
-  const trackable = items.filter((i) => i.done).length;
+  const doneCount = items.filter((i) => !i.optional && isDone(i)).length;
+  const trackable = items.filter((i) => i.done && !i.optional).length;
 
   useEffect(() => {
     let raf = 0;
@@ -95,10 +95,10 @@ export function PageNav({ route }: { route: RouteNo }) {
                         type="button"
                         onClick={() => go(it.id)}
                         aria-current={on ? "location" : undefined}
-                        aria-label={`${it.short} · ${it.title}${done ? tt(" — done", " — erledigt") : ""}`}
+                        aria-label={`${it.short} · ${it.title}${it.done ? (it.optional ? tt(" — optional", " — optional") : tt(" — core", " — Kern")) : ""}${done ? tt(" — done", " — erledigt") : ""}`}
                         className={clsx(
                           "relative flex h-7 min-w-[3.25rem] items-center justify-center rounded-full border px-2.5 text-micro font-bold transition-colors",
-                          on ? "border-ink bg-ink text-paper" : "border-line bg-paper text-ash hover:border-accent hover:text-ink",
+                          on ? "border-ink bg-ink text-paper" : it.optional ? "border-dashed border-line bg-paper text-ash hover:border-accent hover:text-ink" : "border-line bg-paper text-ash hover:border-accent hover:text-ink",
                         )}
                       >
                         {it.short}
@@ -110,7 +110,7 @@ export function PageNav({ route }: { route: RouteNo }) {
                         aria-hidden
                         className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-ink px-2 py-1 text-micro text-paper shadow-sm group-focus-within:block group-hover:block"
                       >
-                        {it.title}
+                        {it.title}{it.done ? (it.optional ? tt(" · Optional", " · Optional") : tt(" · Core", " · Kern")) : ""}
                       </span>
                     </li>
                   );
@@ -149,7 +149,14 @@ export function PageNav({ route }: { route: RouteNo }) {
                           )}
                         >
                           <span className={clsx("w-12 shrink-0 font-bold", on ? "text-paper" : "text-ash")}>{it.short}</span>
-                          <span className="min-w-0 flex-1">{it.title}</span>
+                          <span className="min-w-0 flex-1">
+                            {it.title}
+                            {it.done && (
+                              <span className={clsx("ml-1 text-micro font-normal", on ? "text-paper/80" : it.optional ? "text-ash" : "text-signal")}>
+                                {it.optional ? `(${tt("optional", "optional")})` : `(${tt("core", "Kern")})`}
+                              </span>
+                            )}
+                          </span>
                           {done && (
                             <span className={clsx("text-micro font-semibold", on ? "text-paper" : "text-signal")}>
                               <span aria-hidden>● </span>
