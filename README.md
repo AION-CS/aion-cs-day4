@@ -146,6 +146,11 @@ worked answer (with arithmetic) under every other question, in rust, never expor
      mobile list already showed it inline and always visible — an inconsistency the user caught directly. Both
      screen sizes now show it without needing to hover; CLAUDE.md #35 was tightened to require this explicitly.
    All three verified live (EN/DE, both routes); `npx tsc --noEmit` and `npm run verify:calc` pass.
+10. **The always-visible wide-screen label moved from under the pill to beside it (2026-09-29).** The first
+    version stacked `Core`/`Optional` under each pill, doubling every row's height and reading as cramped — the
+    user caught this directly. It now sits to the left of the pill on the same row (the row stays exactly as
+    tall as the pill), matching the spirit of the mobile list's inline treatment. CLAUDE.md #35 updated to say
+    "beside", not "under". Verified live at 1300 px wide, EN/DE.
 
 ## Coverage: where each task block is taught
 

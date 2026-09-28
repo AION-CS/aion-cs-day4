@@ -93,14 +93,21 @@ export function PageNav({ route }: { route: RouteNo }) {
                   const on = it.id === active;
                   const done = isDone(it);
                   return (
-                    <li key={it.id} className="group relative">
+                    <li key={it.id} className="group relative flex items-center justify-end gap-1">
+                      {/* Always visible, beside the pill, not only on hover/focus: a learner must never have to hover
+                          to know Core from Optional, and it must never push the row taller than the pill itself. */}
+                      {it.done && (
+                        <span aria-hidden className={clsx("whitespace-nowrap text-[9px] font-semibold uppercase leading-none tracking-wide", it.optional ? "text-ash" : "text-signal")}>
+                          {it.optional ? tt("optional", "optional") : tt("core", "Kern")}
+                        </span>
+                      )}
                       <button
                         type="button"
                         onClick={() => go(it.id)}
                         aria-current={on ? "location" : undefined}
                         aria-label={`${it.short} · ${it.title}${it.done ? (it.optional ? tt(" — optional", " — optional") : tt(" — core", " — Kern")) : ""}${done ? tt(" — done", " — erledigt") : ""}`}
                         className={clsx(
-                          "relative flex h-7 min-w-[3.25rem] items-center justify-center rounded-full border px-2.5 text-micro font-bold transition-colors",
+                          "relative flex h-7 min-w-[3.25rem] shrink-0 items-center justify-center rounded-full border px-2.5 text-micro font-bold transition-colors",
                           on ? "border-ink bg-ink text-paper" : it.optional ? "border-dashed border-line bg-paper text-ash hover:border-accent hover:text-ink" : "border-line bg-paper text-ash hover:border-accent hover:text-ink",
                         )}
                       >
@@ -109,12 +116,6 @@ export function PageNav({ route }: { route: RouteNo }) {
                           <span aria-hidden className={clsx("absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-canvas", "bg-signal")} />
                         )}
                       </button>
-                      {/* Always visible, not only on hover/focus: a learner must never have to hover to know Core from Optional. */}
-                      {it.done && (
-                        <span aria-hidden className={clsx("mt-0.5 block w-full text-center text-[9px] font-semibold uppercase leading-none tracking-wide", it.optional ? "text-ash" : "text-signal")}>
-                          {it.optional ? tt("optional", "optional") : tt("core", "Kern")}
-                        </span>
-                      )}
                       <span
                         aria-hidden
                         className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-ink px-2 py-1 text-micro text-paper shadow-sm group-focus-within:block group-hover:block"
